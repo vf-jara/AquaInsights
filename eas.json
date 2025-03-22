@@ -10,10 +10,13 @@
             "environment": "development"
         },
         "preview": {
-            "distribution": "internal"
+            "distribution": "internal",
+            "environment": "preview"
         },
         "production": {
-            "autoIncrement": true
+            "autoIncrement": true,
+            "distribution": "external",
+            "environment": "production"
         }
     },
     "submit": {
