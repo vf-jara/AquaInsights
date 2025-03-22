@@ -15,7 +15,7 @@
         },
         "production": {
             "autoIncrement": true,
-            "distribution": "external",
+            "distribution": "store",
             "environment": "production"
         }
     },
