@@ -1,5 +1,5 @@
 import { db } from '../config/firebase';
-import { collection, addDoc, getDocs, query, where, doc, getDoc, orderBy, Timestamp } from 'firebase/firestore';
+import { collection, addDoc, getDocs, query, where, doc, getDoc, orderBy, Timestamp, updateDoc, deleteDoc } from 'firebase/firestore';
 
 export interface Lote {
     id?: string;
@@ -19,6 +19,26 @@ export const lotesService = {
             return docRef.id;
         } catch (e) {
             console.error("Erro ao criar lote: ", e);
+            throw e;
+        }
+    },
+
+    async updateLote(id: string, loteData: Partial<Omit<Lote, 'id' | 'dataCriacao' | 'userId'>>) {
+        try {
+            const docRef = doc(db, 'lotes', id);
+            await updateDoc(docRef, loteData);
+        } catch (e) {
+            console.error("Erro ao atualizar lote: ", e);
+            throw e;
+        }
+    },
+
+    async deleteLote(id: string) {
+        try {
+            const docRef = doc(db, 'lotes', id);
+            await deleteDoc(docRef);
+        } catch (e) {
+            console.error("Erro ao deletar lote: ", e);
             throw e;
         }
     },

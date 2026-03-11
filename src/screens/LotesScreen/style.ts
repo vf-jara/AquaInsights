@@ -42,10 +42,25 @@ export const LoteCard = styled.TouchableOpacity`
   elevation: 2;
 `;
 
+export const LoteHeader = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const LoteTitle = styled.Text`
   font-size: 18px;
   font-weight: bold;
   color: ${({ theme }) => theme.colors.text};
+`;
+
+export const LoteActionRow = styled.View`
+  flex-direction: row;
+`;
+
+export const LoteActionButton = styled.TouchableOpacity`
+  padding: 4px;
+  margin-left: 12px;
 `;
 
 export const LoteSubtitle = styled.Text`

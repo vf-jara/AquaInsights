@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, Alert, ActivityIndicator, Modal } from 'react-native';
+import { FlatList, Alert, ActivityIndicator, Modal, View } from 'react-native';
 import { useAuth } from '../../contexts/AuthContext';
 import { useNavigation } from '@react-navigation/native';
 import { lotesService, Lote } from '../../services/lotesService';
-import { Container, HeaderRow, Title, AddButton, AddButtonText, LoteCard, LoteTitle, LoteSubtitle, EmptyText, ModalOverlay, ModalContent, ModalTitle, Input, ModalActionRow, ModalButton, ModalButtonText } from './style';
+import { Container, HeaderRow, Title, AddButton, AddButtonText, LoteCard, LoteHeader, LoteTitle, LoteActionRow, LoteActionButton, LoteSubtitle, EmptyText, ModalOverlay, ModalContent, ModalTitle, Input, ModalActionRow, ModalButton, ModalButtonText } from './style';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function LotesScreen() {
   const { user } = useAuth();
@@ -13,8 +14,9 @@ export default function LotesScreen() {
   const [isModalVisible, setModalVisible] = useState(false);
 
   // Form State
+  const [editingLoteId, setEditingLoteId] = useState<string | null>(null);
   const [numeroLote, setNumeroLote] = useState('');
-  const [especieId, setEspecieId] = useState(''); // Normally a dropdown/picker
+  const [especieId, setEspecieId] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
@@ -34,7 +36,21 @@ export default function LotesScreen() {
     }
   };
 
-  const handleCreateLote = async () => {
+  const openModalForCreate = () => {
+    setEditingLoteId(null);
+    setNumeroLote('');
+    setEspecieId('');
+    setModalVisible(true);
+  };
+
+  const openModalForEdit = (lote: Lote) => {
+    setEditingLoteId(lote.id!);
+    setNumeroLote(lote.numeroLote);
+    setEspecieId(lote.especieId);
+    setModalVisible(true);
+  };
+
+  const handleSaveLote = async () => {
     if (!numeroLote.trim() || !especieId.trim()) {
       Alert.alert('Atenção', 'Preencha todos os campos.');
       return;
@@ -42,15 +58,20 @@ export default function LotesScreen() {
 
     try {
       setIsSubmitting(true);
-      await lotesService.createLote({
-        numeroLote,
-        especieId,
-        userId: user!.uid
-      });
+      if (editingLoteId) {
+        await lotesService.updateLote(editingLoteId, {
+          numeroLote,
+          especieId,
+        });
+      } else {
+        await lotesService.createLote({
+          numeroLote,
+          especieId,
+          userId: user!.uid
+        });
+      }
       setModalVisible(false);
-      setNumeroLote('');
-      setEspecieId('');
-      fetchLotes(); // Refresh list
+      fetchLotes();
     } catch (error) {
       Alert.alert('Erro', 'Falha ao salvar o lote.');
     } finally {
@@ -58,10 +79,55 @@ export default function LotesScreen() {
     }
   };
 
+  const handleDeleteLote = (loteId: string) => {
+    Alert.alert(
+      "Atenção: Ação Irreversível",
+      "Tem certeza de que deseja excluir permanentemente este lote? O histórico será perdido.",
+      [
+        { text: "Cancelar", style: "cancel" },
+        { 
+          text: "Excluir", 
+          style: "destructive",
+          onPress: async () => {
+            try {
+              setIsSubmitting(true);
+              await lotesService.deleteLote(loteId);
+              fetchLotes();
+            } catch (error) {
+              Alert.alert('Erro', 'Falha ao excluir o lote.');
+            } finally {
+              setIsSubmitting(false);
+            }
+          }
+        }
+      ]
+    );
+  };
+
   const renderItem = ({ item }: { item: Lote }) => (
     <LoteCard onPress={() => navigation.navigate('Historico', { loteId: item.id })}>
-      <LoteTitle>Lote #{item.numeroLote}</LoteTitle>
-      <LoteSubtitle>Espécie ID: {item.especieId}</LoteSubtitle>
+      <LoteHeader>
+        <LoteTitle>Lote #{item.numeroLote}</LoteTitle>
+        <LoteActionRow>
+          <LoteActionButton 
+            onPress={(e: any) => { 
+                e.stopPropagation(); 
+                openModalForEdit(item); 
+            }}
+          >
+            <MaterialCommunityIcons name="pencil-outline" size={20} color="#0A74DA" />
+          </LoteActionButton>
+          <LoteActionButton 
+            onPress={(e: any) => { 
+                e.stopPropagation(); 
+                handleDeleteLote(item.id!); 
+            }}
+          >
+            <MaterialCommunityIcons name="delete-outline" size={20} color="#F56565" />
+          </LoteActionButton>
+        </LoteActionRow>
+      </LoteHeader>
+      <LoteSubtitle>Espécie: {item.especieId}</LoteSubtitle>
       <LoteSubtitle>Criado em: {item.dataCriacao.toLocaleDateString()}</LoteSubtitle>
     </LoteCard>
   );
@@ -70,12 +136,12 @@ export default function LotesScreen() {
     <Container>
       <HeaderRow>
         <Title>Meus Tanques</Title>
-        <AddButton onPress={() => setModalVisible(true)}>
+        <AddButton onPress={openModalForCreate}>
           <AddButtonText>+ Novo</AddButtonText>
         </AddButton>
       </HeaderRow>
 
-      {loading ? (
+      {loading && !isSubmitting ? (
         <ActivityIndicator size="large" color="#0A74DA" style={{ marginTop: 20 }} />
       ) : (
         <FlatList
@@ -90,7 +156,7 @@ export default function LotesScreen() {
       <Modal visible={isModalVisible} transparent animationType="fade">
         <ModalOverlay>
           <ModalContent>
-            <ModalTitle>Novo Lote / Tanque</ModalTitle>
+            <ModalTitle>{editingLoteId ? 'Editar Lote / Tanque' : 'Novo Lote / Tanque'}</ModalTitle>
 
             <Input
               placeholder="Identificador do Lote (ex: Tanque 01)"
@@ -108,7 +174,7 @@ export default function LotesScreen() {
               <ModalButton onPress={() => setModalVisible(false)} disabled={isSubmitting}>
                 <ModalButtonText>Cancelar</ModalButtonText>
               </ModalButton>
-              <ModalButton isPrimary onPress={handleCreateLote} disabled={isSubmitting}>
+              <ModalButton isPrimary onPress={handleSaveLote} disabled={isSubmitting}>
                 {isSubmitting ? (
                   <ActivityIndicator color="#FFF" size="small" />
                 ) : (
