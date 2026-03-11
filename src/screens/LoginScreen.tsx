@@ -20,11 +20,22 @@ const Title = styled.Text`
   text-align: center;
 `;
 
+const InputGroup = styled.View`
+  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+`;
+
+const Label = styled.Text`
+  font-size: 14px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.text};
+  margin-bottom: ${({ theme }) => theme.spacing.xs}px;
+  margin-left: 2px;
+`;
+
 const Input = styled.TextInput`
   background-color: ${({ theme }) => theme.colors.card};
   padding: ${({ theme }) => theme.spacing.md}px;
   border-radius: ${({ theme }) => theme.borderRadius.sm}px;
-  margin-bottom: ${({ theme }) => theme.spacing.md}px;
   font-size: 16px;
   color: ${({ theme }) => theme.colors.text};
   border-width: 1px;
@@ -82,27 +93,40 @@ export default function LoginScreen() {
                     <Title>AquaInsights</Title>
 
                     {!isLogin && (
-                        <Input
-                            placeholder="Nome Completo"
-                            value={nome}
-                            onChangeText={setNome}
-                            autoCapitalize="words"
-                        />
+                        <InputGroup>
+                            <Label>Nome Completo</Label>
+                            <Input
+                                placeholder="Ex: João Silva"
+                                placeholderTextColor="#7A8C9E"
+                                value={nome}
+                                onChangeText={setNome}
+                                autoCapitalize="words"
+                            />
+                        </InputGroup>
                     )}
 
-                    <Input
-                        placeholder="E-mail"
-                        value={email}
-                        onChangeText={setEmail}
-                        keyboardType="email-address"
-                        autoCapitalize="none"
-                    />
-                    <Input
-                        placeholder="Senha"
-                        value={password}
-                        onChangeText={setPassword}
-                        secureTextEntry
-                    />
+                    <InputGroup>
+                        <Label>E-mail</Label>
+                        <Input
+                            placeholder="Ex: joao@email.com"
+                            placeholderTextColor="#7A8C9E"
+                            value={email}
+                            onChangeText={setEmail}
+                            keyboardType="email-address"
+                            autoCapitalize="none"
+                        />
+                    </InputGroup>
+
+                    <InputGroup>
+                        <Label>Senha</Label>
+                        <Input
+                            placeholder="Sua senha"
+                            placeholderTextColor="#7A8C9E"
+                            value={password}
+                            onChangeText={setPassword}
+                            secureTextEntry
+                        />
+                    </InputGroup>
 
                     {loading ? (
                         <ActivityIndicator size="large" color="#0A74DA" style={{ marginTop: 20 }} />

@@ -29,14 +29,25 @@ const Label = styled.Text`
   font-size: 14px;
   color: ${({ theme }) => theme.colors.text};
   margin-bottom: ${({ theme }) => theme.spacing.xs}px;
+  font-weight: 600;
+  margin-left: 2px;
+`;
+
+const SectionTitle = styled.Text`
+  font-size: 16px;
+  color: ${({ theme }) => theme.colors.text};
+  margin-bottom: ${({ theme }) => theme.spacing.md}px;
   font-weight: bold;
+`;
+
+const InputGroup = styled.View`
+  margin-bottom: ${({ theme }) => theme.spacing.md}px;
 `;
 
 const inputStyle = {
   backgroundColor: '#FFFFFF',
   padding: 16,
   borderRadius: 8,
-  marginBottom: 16,
   fontSize: 16,
   borderWidth: 1,
   borderColor: '#E2E8F0',
@@ -193,14 +204,112 @@ export default function LeituraScreen() {
             />
           )}
 
-          <Label style={{ marginTop: 16 }}>Parâmetros da Água:</Label>
-          <TextInput ref={phRef} style={inputStyle} placeholder="pH" keyboardType="numeric" value={ph} onChangeText={setPh} returnKeyType="next" onSubmitEditing={() => oxigenioRef.current?.focus()} />
-          <TextInput ref={oxigenioRef} style={inputStyle} placeholder="Oxigênio Dissolvido (mg/L)" keyboardType="numeric" value={oxigenio} onChangeText={setOxigenio} returnKeyType="next" onSubmitEditing={() => temperaturaRef.current?.focus()} />
-          <TextInput ref={temperaturaRef} style={inputStyle} placeholder="Temperatura (°C)" keyboardType="numeric" value={temperatura} onChangeText={setTemperatura} returnKeyType="next" onSubmitEditing={() => amoniaRef.current?.focus()} />
-          <TextInput ref={amoniaRef} style={inputStyle} placeholder="Amônia (mg/L)" keyboardType="numeric" value={amonia} onChangeText={setAmonia} returnKeyType="next" onSubmitEditing={() => nitritoRef.current?.focus()} />
-          <TextInput ref={nitritoRef} style={inputStyle} placeholder="Nitrito (mg/L)" keyboardType="numeric" value={nitrito} onChangeText={setNitrito} returnKeyType="next" onSubmitEditing={() => nitratoRef.current?.focus()} />
-          <TextInput ref={nitratoRef} style={inputStyle} placeholder="Nitrato (mg/L)" keyboardType="numeric" value={nitrato} onChangeText={setNitrato} returnKeyType="next" onSubmitEditing={() => alcalinidadeRef.current?.focus()} />
-          <TextInput ref={alcalinidadeRef} style={inputStyle} placeholder="Alcalinidade (mg/L)" keyboardType="numeric" value={alcalinidade} onChangeText={setAlcalinidade} returnKeyType="done" onSubmitEditing={() => Keyboard.dismiss()} />
+          <SectionTitle style={{ marginTop: 16 }}>Parâmetros da Água:</SectionTitle>
+
+          <InputGroup>
+            <Label>pH</Label>
+            <TextInput
+              ref={phRef}
+              style={inputStyle}
+              placeholder="Ex: 7.0"
+              placeholderTextColor="#7A8C9E"
+              keyboardType="numeric"
+              value={ph}
+              onChangeText={setPh}
+              returnKeyType="next"
+              onSubmitEditing={() => oxigenioRef.current?.focus()}
+            />
+          </InputGroup>
+
+          <InputGroup>
+            <Label>Oxigênio Dissolvido (mg/L)</Label>
+            <TextInput
+              ref={oxigenioRef}
+              style={inputStyle}
+              placeholder="Ex: 5.5"
+              placeholderTextColor="#7A8C9E"
+              keyboardType="numeric"
+              value={oxigenio}
+              onChangeText={setOxigenio}
+              returnKeyType="next"
+              onSubmitEditing={() => temperaturaRef.current?.focus()}
+            />
+          </InputGroup>
+
+          <InputGroup>
+            <Label>Temperatura (°C)</Label>
+            <TextInput
+              ref={temperaturaRef}
+              style={inputStyle}
+              placeholder="Ex: 28.5"
+              placeholderTextColor="#7A8C9E"
+              keyboardType="numeric"
+              value={temperatura}
+              onChangeText={setTemperatura}
+              returnKeyType="next"
+              onSubmitEditing={() => amoniaRef.current?.focus()}
+            />
+          </InputGroup>
+
+          <InputGroup>
+            <Label>Amônia (mg/L)</Label>
+            <TextInput
+              ref={amoniaRef}
+              style={inputStyle}
+              placeholder="Ex: 0.25"
+              placeholderTextColor="#7A8C9E"
+              keyboardType="numeric"
+              value={amonia}
+              onChangeText={setAmonia}
+              returnKeyType="next"
+              onSubmitEditing={() => nitritoRef.current?.focus()}
+            />
+          </InputGroup>
+
+          <InputGroup>
+            <Label>Nitrito (mg/L)</Label>
+            <TextInput
+              ref={nitritoRef}
+              style={inputStyle}
+              placeholder="Ex: 0.1"
+              placeholderTextColor="#7A8C9E"
+              keyboardType="numeric"
+              value={nitrito}
+              onChangeText={setNitrito}
+              returnKeyType="next"
+              onSubmitEditing={() => nitratoRef.current?.focus()}
+            />
+          </InputGroup>
+
+          <InputGroup>
+            <Label>Nitrato (mg/L)</Label>
+            <TextInput
+              ref={nitratoRef}
+              style={inputStyle}
+              placeholder="Ex: 10.0"
+              placeholderTextColor="#7A8C9E"
+              keyboardType="numeric"
+              value={nitrato}
+              onChangeText={setNitrato}
+              returnKeyType="next"
+              onSubmitEditing={() => alcalinidadeRef.current?.focus()}
+            />
+          </InputGroup>
+
+          <InputGroup>
+            <Label>Alcalinidade (mg/L)</Label>
+            <TextInput
+              ref={alcalinidadeRef}
+              style={inputStyle}
+              placeholder="Ex: 120.0"
+              placeholderTextColor="#7A8C9E"
+              keyboardType="numeric"
+              value={alcalinidade}
+              onChangeText={setAlcalinidade}
+              returnKeyType="done"
+              onSubmitEditing={() => Keyboard.dismiss()}
+            />
+          </InputGroup>
 
           <ActionButton onPress={handleSaveLeitura} disabled={isSubmitting || lotes.length === 0}>
             {isSubmitting ? (
