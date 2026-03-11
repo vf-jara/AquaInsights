@@ -1,10 +1,19 @@
 import styled from 'styled-components/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-export const Container = styled(SafeAreaView)`
+export const SafeContainer = styled(SafeAreaView)`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.background};
   padding: ${({ theme }) => theme.spacing.lg}px;
+`;
+
+export const ScrollContainer = styled.ScrollView.attrs(({ theme }: any) => ({
+  contentContainerStyle: {
+    flexGrow: 1,
+    padding: theme.spacing.lg,
+  }
+}))`
+  flex: 1;
 `;
 
 export const Header = styled.View`
@@ -32,12 +41,12 @@ export const MenuGrid = styled.View`
 
 export const MenuCard = styled.TouchableOpacity`
   background-color: ${({ theme }) => theme.colors.card};
+  flex-direction: row;
   width: 100%;
   height: 90px;
-  padding: ${({ theme }) => theme.spacing.md}px;
+  padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.lg}px;
   border-radius: ${({ theme }) => theme.borderRadius.md}px;
   margin-bottom: ${({ theme }) => theme.spacing.md}px;
-  justify-content: center;
   align-items: center;
   shadow-color: #000;
   shadow-offset: 0px 4px;
@@ -47,11 +56,10 @@ export const MenuCard = styled.TouchableOpacity`
 `;
 
 export const CardText = styled.Text`
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   color: ${({ theme }) => theme.colors.primary};
-  text-align: center;
-  margin-top: ${({ theme }) => theme.spacing.sm}px;
+  margin-left: ${({ theme }) => theme.spacing.md}px;
 `;
 
 export const LogoutButton = styled.TouchableOpacity`

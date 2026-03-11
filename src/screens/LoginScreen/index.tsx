@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ActivityIndicator, Alert, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { ActivityIndicator, Alert, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, Image, View } from 'react-native';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../config/firebase';
 import { userService } from '../../services/userService';
@@ -38,6 +38,12 @@ export default function LoginScreen() {
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <Container>
+                    <View style={{ alignItems: 'center', marginBottom: 10 }}>
+                        <Image 
+                            source={require('../../assets/logo.png')} 
+                            style={{ width: 120, height: 120, resizeMode: 'contain' }} 
+                        />
+                    </View>
                     <Title>AquaInsights</Title>
 
                     {!isLogin && (
