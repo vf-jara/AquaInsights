@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from 'react';
-import { Image, TouchableOpacity, Alert } from 'react-native';
+import { Image, TouchableOpacity, Alert, View, Text } from 'react-native';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../config/firebase';
 import { useAuth } from '../../contexts/AuthContext';
@@ -13,6 +13,17 @@ export default function DashboardScreen() {
 
     useLayoutEffect(() => {
         navigation.setOptions({
+            headerTitle: () => (
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Image 
+                        source={require('../../assets/logo.png')}
+                        style={{ width: 30, height: 30, marginRight: 10, resizeMode: 'contain' }}
+                    />
+                    <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
+                        AquaInsights
+                    </Text>
+                </View>
+            ),
             headerRight: () => (
                 <TouchableOpacity
                     onPress={() => {
@@ -50,10 +61,6 @@ export default function DashboardScreen() {
 
     return (
         <SafeContainer>
-            <Image
-                source={require('../../assets/logo.png')}
-                style={{ width: '100%', height: 180, resizeMode: 'contain', marginBottom: 20, marginTop: 20 }}
-            />
             <Header>
                 <Greeting>
                     Olá, {displayName}!{"\n"}
