@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { FlatList, Alert, ActivityIndicator, Modal } from 'react-native';
 import { useAuth } from '../../contexts/AuthContext';
+import { useNavigation } from '@react-navigation/native';
 import { lotesService, Lote } from '../../services/lotesService';
 import { Container, HeaderRow, Title, AddButton, AddButtonText, LoteCard, LoteTitle, LoteSubtitle, EmptyText, ModalOverlay, ModalContent, ModalTitle, Input, ModalActionRow, ModalButton, ModalButtonText } from './style';
 
 export default function LotesScreen() {
   const { user } = useAuth();
+  const navigation = useNavigation<any>();
   const [lotes, setLotes] = useState<Lote[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalVisible, setModalVisible] = useState(false);
@@ -57,7 +59,7 @@ export default function LotesScreen() {
   };
 
   const renderItem = ({ item }: { item: Lote }) => (
-    <LoteCard>
+    <LoteCard onPress={() => navigation.navigate('Historico', { loteId: item.id })}>
       <LoteTitle>Lote #{item.numeroLote}</LoteTitle>
       <LoteSubtitle>Espécie ID: {item.especieId}</LoteSubtitle>
       <LoteSubtitle>Criado em: {item.dataCriacao.toLocaleDateString()}</LoteSubtitle>

@@ -5,26 +5,15 @@ import { userService, UserProfile } from '../../services/userService';
 import { Container, Label, Input, DisaledInput, ButtonContainer, ButtonText } from './style';
 
 export default function ProfileScreen() {
-    const { user } = useAuth();
-    const [profile, setProfile] = useState<UserProfile | null>(null);
-    const [nome, setNome] = useState('');
-    const [loading, setLoading] = useState(true);
+    const { user, profile, updateProfileContext } = useAuth();
+    const [nome, setNome] = useState(profile?.nome || '');
     const [saving, setSaving] = useState(false);
 
     useEffect(() => {
-        if (user) {
-            userService.getUserProfile(user.uid).then(data => {
-                if (data) {
-                    setProfile(data);
-                    setNome(data.nome);
-                }
-                setLoading(false);
-            }).catch(() => {
-                Alert.alert('Erro', 'Falha ao carregar perfil');
-                setLoading(false);
-            });
+        if (profile) {
+            setNome(profile.nome);
         }
-    }, [user]);
+    }, [profile]);
 
     const handleSave = async () => {
         if (!nome.trim()) {
@@ -32,10 +21,11 @@ export default function ProfileScreen() {
             return;
         }
 
-        if (user) {
+        if (user && profile) {
             setSaving(true);
             try {
                 await userService.updateUserProfile(user.uid, { nome });
+                updateProfileContext({ ...profile, nome });
                 Alert.alert('Sucesso', 'Perfil atualizado com sucesso!');
             } catch (error) {
                 Alert.alert('Erro', 'Falha ao salvar as alterações');
@@ -44,14 +34,6 @@ export default function ProfileScreen() {
             }
         }
     };
-
-    if (loading) {
-        return (
-            <Container style={{ justifyContent: 'center', alignItems: 'center' }}>
-                <ActivityIndicator size="large" color="#0A74DA" />
-            </Container>
-        );
-    }
 
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>

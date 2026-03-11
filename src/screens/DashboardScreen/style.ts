@@ -26,15 +26,14 @@ export const Subtitle = styled.Text`
 `;
 
 export const MenuGrid = styled.View`
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const MenuCard = styled.TouchableOpacity`
   background-color: ${({ theme }) => theme.colors.card};
-  width: 48%;
-  height: 120px;
+  width: 100%;
+  height: 90px;
   padding: ${({ theme }) => theme.spacing.md}px;
   border-radius: ${({ theme }) => theme.borderRadius.md}px;
   margin-bottom: ${({ theme }) => theme.spacing.md}px;

@@ -51,7 +51,10 @@ export default function OrientacaoScreen() {
           </InstrucaoCard>
         ))}
 
-        <VoltarButton onPress={() => navigation.navigate('Dashboard')}>
+        <VoltarButton onPress={() => navigation.reset({
+          index: 0,
+          routes: [{ name: 'Dashboard' }],
+        })}>
           <VoltarButtonText>Voltar ao Dashboard</VoltarButtonText>
         </VoltarButton>
       </ContentOffset>

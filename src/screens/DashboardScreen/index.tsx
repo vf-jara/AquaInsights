@@ -7,17 +7,8 @@ import { userService, UserProfile } from '../../services/userService';
 import { Container, Header, Greeting, Subtitle, MenuGrid, MenuCard, CardText, LogoutButton, LogoutText } from './style';
 
 export default function DashboardScreen() {
-    const { user } = useAuth();
+    const { user, profile } = useAuth();
     const navigation = useNavigation<any>();
-    const [profile, setProfile] = useState<UserProfile | null>(null);
-
-    useEffect(() => {
-        if (user) {
-            userService.getUserProfile(user.uid).then(data => {
-                setProfile(data);
-            });
-        }
-    }, [user]);
 
     const handleLogout = async () => {
         try {
@@ -44,9 +35,6 @@ export default function DashboardScreen() {
                 </MenuCard>
                 <MenuCard onPress={() => navigation.navigate('Leitura')}>
                     <CardText>Realizar Leitura</CardText>
-                </MenuCard>
-                <MenuCard onPress={() => navigation.navigate('Historico')}>
-                    <CardText>Histórico de Leituras</CardText>
                 </MenuCard>
                 <MenuCard onPress={() => navigation.navigate('Perfil')}>
                     <CardText>Meu Perfil</CardText>

@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { FlatList, ActivityIndicator, Alert, Text, View } from 'react-native';
 import { useAuth } from '../../contexts/AuthContext';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { lotesService, Lote } from '../../services/lotesService';
 import { leiturasService, Leitura } from '../../services/leiturasService';
 import { avaliarLeitura } from '../../utils/waterQualityRules';
 import { Container, Title, SelectLoteButton, SelectLoteText, LeituraCard, LeituraData, StatusBadge, StatusText, ParamText, EmptyText } from './style';
 
+type HistoricoRouteParams = {
+  Historico: { loteId?: string };
+};
+
 export default function HistoricoScreen() {
   const { user } = useAuth();
   const navigation = useNavigation<any>();
+  const route = useRoute<RouteProp<HistoricoRouteParams, 'Historico'>>();
 
   const [lotes, setLotes] = useState<Lote[]>([]);
-  const [selectedLoteId, setSelectedLoteId] = useState<string | null>(null);
+  const [selectedLoteId, setSelectedLoteId] = useState<string | null>(route.params?.loteId || null);
 
   const [leituras, setLeituras] = useState<Leitura[]>([]);
   const [loading, setLoading] = useState(true);
@@ -22,7 +27,10 @@ export default function HistoricoScreen() {
       lotesService.getLotesByUser(user.uid).then(data => {
         setLotes(data);
         if (data.length > 0) {
-          setSelectedLoteId(data[0].id!);
+          // If a loteId was passed through params and it exists in user lotes, use it. Otherwise use the first one.
+          const paramLoteId = route.params?.loteId;
+          const loteExists = paramLoteId && data.find(l => l.id === paramLoteId);
+          setSelectedLoteId(loteExists ? paramLoteId! : data[0].id!);
         } else {
           setLoading(false);
         }
@@ -31,7 +39,7 @@ export default function HistoricoScreen() {
         setLoading(false);
       });
     }
-  }, [user]);
+  }, [user, route.params?.loteId]);
 
   useEffect(() => {
     if (selectedLoteId) {

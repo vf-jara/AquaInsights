@@ -30,7 +30,7 @@ export const AddButtonText = styled.Text`
   font-weight: bold;
 `;
 
-export const LoteCard = styled.View`
+export const LoteCard = styled.TouchableOpacity`
   background-color: ${({ theme }) => theme.colors.card};
   padding: ${({ theme }) => theme.spacing.md}px;
   border-radius: ${({ theme }) => theme.borderRadius.md}px;
