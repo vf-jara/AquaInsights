@@ -12,7 +12,7 @@ export interface Leitura {
     amonia: number;
     nitrito: number;
     nitrato: number;
-    dureza: number;
+    alcalinidade: number;
     status: string;
 }
 
@@ -26,7 +26,7 @@ export const leiturasService = {
                 amonia: leituraData.amonia,
                 nitrito: leituraData.nitrito,
                 nitrato: leituraData.nitrato,
-                dureza: leituraData.dureza,
+                alcalinidade: leituraData.alcalinidade,
             });
 
             const status = avaliacao.nivelGeral === 'Ótimo'
@@ -68,7 +68,7 @@ export const leiturasService = {
                     amonia: data.amonia,
                     nitrito: data.nitrito,
                     nitrato: data.nitrato,
-                    dureza: data.dureza ?? 0,
+                    alcalinidade: data.alcalinidade ?? data.dureza ?? 0,
                     status: data.status,
                     data: data.data?.toDate() || new Date(),
                 });

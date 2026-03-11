@@ -4,7 +4,7 @@ import {
   avaliarPh,
   avaliarAmonia,
   avaliarNitrito,
-  avaliarDureza,
+  avaliarAlcalinidade,
   avaliarLeitura,
   NivelQualidade,
   DadosLeitura,
@@ -166,23 +166,23 @@ describe('avaliarNitrito', () => {
   });
 });
 
-// ─────────────────── Dureza ───────────────────
+// ─────────────────── Alcalinidade ───────────────────
 
-describe('avaliarDureza', () => {
+describe('avaliarAlcalinidade', () => {
   it('retorna Ótimo acima de 30 mg/L', () => {
-    const result = avaliarDureza(50);
+    const result = avaliarAlcalinidade(50);
     expect(result.nivel).toBe('Ótimo');
     expect(result.direcao).toBeNull();
   });
 
   it('retorna Atenção abaixo de 30 mg/L', () => {
-    const result = avaliarDureza(20);
+    const result = avaliarAlcalinidade(20);
     expect(result.nivel).toBe('Atenção');
     expect(result.direcao).toBe('abaixo');
   });
 
   it('limites: 30 mg/L é Ótimo', () => {
-    expect(avaliarDureza(30).nivel).toBe('Ótimo');
+    expect(avaliarAlcalinidade(30).nivel).toBe('Ótimo');
   });
 });
 
@@ -196,7 +196,7 @@ describe('avaliarLeitura', () => {
     amonia: 0,
     nitrito: 0,
     nitrato: 5,
-    dureza: 50,
+    alcalinidade: 50,
   };
 
   it('retorna nível Ótimo com valores ideais', () => {
@@ -245,6 +245,6 @@ describe('avaliarLeitura', () => {
     const result = avaliarLeitura(dadosOtimos);
     const nomes = result.avaliacoes.map((a: ParametroAvaliacao) => a.parametro);
     expect(nomes).not.toContain('Nitrato');
-    expect(nomes).toContain('Dureza');
+    expect(nomes).toContain('Alcalinidade');
   });
 });

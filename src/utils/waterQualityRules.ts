@@ -35,7 +35,7 @@ export interface DadosLeitura {
   amonia: number;
   nitrito: number;
   nitrato: number;
-  dureza: number;
+  alcalinidade: number;
 }
 
 // ────────────────────────── Classificadores ──────────────────────────
@@ -117,14 +117,14 @@ export function avaliarNitrito(valor: number): ParametroAvaliacao {
   return { ...base, nivel: 'Crítico', direcao: 'acima', mensagem: 'Nitrito crítico. Suspender alimentação, trocar água e adicionar sal.' };
 }
 
-export function avaliarDureza(valor: number): ParametroAvaliacao {
-  const base = { parametro: 'Dureza', valor, unidade: 'mg/L' };
+export function avaliarAlcalinidade(valor: number): ParametroAvaliacao {
+  const base = { parametro: 'Alcalinidade', valor, unidade: 'mg/L' };
 
   if (valor >= 30) {
-    return { ...base, nivel: 'Ótimo', direcao: null, mensagem: 'Dureza/alcalinidade adequada.' };
+    return { ...base, nivel: 'Ótimo', direcao: null, mensagem: 'Alcalinidade adequada.' };
   }
   // < 30
-  return { ...base, nivel: 'Atenção', direcao: 'abaixo', mensagem: 'Dureza abaixo do recomendado (mín. 30 mg/L). Considerar correção.' };
+  return { ...base, nivel: 'Atenção', direcao: 'abaixo', mensagem: 'Alcalinidade abaixo do recomendado (mín. 30 mg/L). Considerar correção.' };
 }
 
 // ────────────────────── Instruções de Manejo ──────────────────────
@@ -206,7 +206,7 @@ export function avaliarLeitura(dados: DadosLeitura): AvaliacaoGeral {
     avaliarPh(dados.ph),
     avaliarAmonia(dados.amonia),
     avaliarNitrito(dados.nitrito),
-    avaliarDureza(dados.dureza),
+    avaliarAlcalinidade(dados.alcalinidade),
   ];
 
   // Nível geral = o mais grave encontrado

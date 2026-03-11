@@ -99,7 +99,7 @@ export default function LeituraScreen() {
   const [amonia, setAmonia] = useState('');
   const [nitrito, setNitrito] = useState('');
   const [nitrato, setNitrato] = useState('');
-  const [dureza, setDureza] = useState('');
+  const [alcalinidade, setAlcalinidade] = useState('');
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -109,7 +109,7 @@ export default function LeituraScreen() {
   const amoniaRef = useRef<TextInput>(null);
   const nitritoRef = useRef<TextInput>(null);
   const nitratoRef = useRef<TextInput>(null);
-  const durezaRef = useRef<TextInput>(null);
+  const alcalinidadeRef = useRef<TextInput>(null);
 
   useEffect(() => {
     if (user) {
@@ -128,7 +128,7 @@ export default function LeituraScreen() {
       Alert.alert('Atenção', 'Selecione um tanque / lote primeiro.');
       return;
     }
-    if (!ph || !oxigenio || !temperatura || !amonia || !nitrito || !nitrato || !dureza) {
+    if (!ph || !oxigenio || !temperatura || !amonia || !nitrito || !nitrato || !alcalinidade) {
       Alert.alert('Atenção', 'Preencha todos os parâmetros da água.');
       return;
     }
@@ -141,7 +141,7 @@ export default function LeituraScreen() {
       amonia: parseFloat(amonia.replace(',', '.')),
       nitrito: parseFloat(nitrito.replace(',', '.')),
       nitrato: parseFloat(nitrato.replace(',', '.')),
-      dureza: parseFloat(dureza.replace(',', '.')),
+      alcalinidade: parseFloat(alcalinidade.replace(',', '.')),
     };
 
     try {
@@ -199,8 +199,8 @@ export default function LeituraScreen() {
           <TextInput ref={temperaturaRef} style={inputStyle} placeholder="Temperatura (°C)" keyboardType="numeric" value={temperatura} onChangeText={setTemperatura} returnKeyType="next" onSubmitEditing={() => amoniaRef.current?.focus()} />
           <TextInput ref={amoniaRef} style={inputStyle} placeholder="Amônia (mg/L)" keyboardType="numeric" value={amonia} onChangeText={setAmonia} returnKeyType="next" onSubmitEditing={() => nitritoRef.current?.focus()} />
           <TextInput ref={nitritoRef} style={inputStyle} placeholder="Nitrito (mg/L)" keyboardType="numeric" value={nitrito} onChangeText={setNitrito} returnKeyType="next" onSubmitEditing={() => nitratoRef.current?.focus()} />
-          <TextInput ref={nitratoRef} style={inputStyle} placeholder="Nitrato (mg/L)" keyboardType="numeric" value={nitrato} onChangeText={setNitrato} returnKeyType="next" onSubmitEditing={() => durezaRef.current?.focus()} />
-          <TextInput ref={durezaRef} style={inputStyle} placeholder="Dureza (mg/L)" keyboardType="numeric" value={dureza} onChangeText={setDureza} returnKeyType="done" onSubmitEditing={() => Keyboard.dismiss()} />
+          <TextInput ref={nitratoRef} style={inputStyle} placeholder="Nitrato (mg/L)" keyboardType="numeric" value={nitrato} onChangeText={setNitrato} returnKeyType="next" onSubmitEditing={() => alcalinidadeRef.current?.focus()} />
+          <TextInput ref={alcalinidadeRef} style={inputStyle} placeholder="Alcalinidade (mg/L)" keyboardType="numeric" value={alcalinidade} onChangeText={setAlcalinidade} returnKeyType="done" onSubmitEditing={() => Keyboard.dismiss()} />
 
           <ActionButton onPress={handleSaveLeitura} disabled={isSubmitting || lotes.length === 0}>
             {isSubmitting ? (

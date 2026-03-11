@@ -131,7 +131,7 @@ export default function HistoricoScreen() {
       amonia: item.amonia,
       nitrito: item.nitrito,
       nitrato: item.nitrato,
-      dureza: item.dureza ?? 0,
+      alcalinidade: item.alcalinidade ?? 0,
     });
     navigation.navigate('Orientacao', { avaliacao });
   };
@@ -149,7 +149,7 @@ export default function HistoricoScreen() {
       <ParamText>Temp: {item.temperatura} °C</ParamText>
       <ParamText>Amônia: {item.amonia} mg/L</ParamText>
       <ParamText>Nitrito: {item.nitrito} mg/L | Nitrato: {item.nitrato} mg/L</ParamText>
-      <ParamText>Dureza: {item.dureza ?? '—'} mg/L</ParamText>
+      <ParamText>Alcalinidade: {item.alcalinidade ?? '—'} mg/L</ParamText>
     </LeituraCard>
   );
 
