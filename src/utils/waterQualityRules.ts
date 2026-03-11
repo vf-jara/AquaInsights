@@ -1,5 +1,5 @@
 /**
- * Módulo de regras de qualidade da água – APPeixe
+ * Módulo de regras de qualidade da água – para tilápias-do-nilo em viveiros escavados 
  *
  * Baseado nos documentos:
  *   - Intervencao.APPeixe (tabela de intervenção)
