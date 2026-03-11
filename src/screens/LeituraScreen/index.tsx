@@ -1,100 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import styled from 'styled-components/native';
 import { Alert, ActivityIndicator, ScrollView, Platform, KeyboardAvoidingView, Keyboard, TextInput } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
-import { useAuth } from '../contexts/AuthContext';
-import { lotesService, Lote } from '../services/lotesService';
-import { leiturasService } from '../services/leiturasService';
+import { useAuth } from '../../contexts/AuthContext';
+import { lotesService, Lote } from '../../services/lotesService';
+import { leiturasService } from '../../services/leiturasService';
 import { useNavigation } from '@react-navigation/native';
-import { avaliarLeitura } from '../utils/waterQualityRules';
-
-const Container = styled.ScrollView`
-  flex: 1;
-  background-color: ${({ theme }) => theme.colors.background};
-`;
-
-const ContentOffset = styled.View`
-  padding: ${({ theme }) => theme.spacing.lg}px;
-  padding-bottom: 40px;
-`;
-
-const Title = styled.Text`
-  font-size: 24px;
-  font-weight: bold;
-  color: ${({ theme }) => theme.colors.primary};
-  margin-bottom: ${({ theme }) => theme.spacing.md}px;
-`;
-
-const Label = styled.Text`
-  font-size: 14px;
-  color: ${({ theme }) => theme.colors.text};
-  margin-bottom: ${({ theme }) => theme.spacing.xs}px;
-  font-weight: 600;
-  margin-left: 2px;
-`;
-
-const SectionTitle = styled.Text`
-  font-size: 16px;
-  color: ${({ theme }) => theme.colors.text};
-  margin-bottom: ${({ theme }) => theme.spacing.md}px;
-  font-weight: bold;
-`;
-
-const InputGroup = styled.View`
-  margin-bottom: ${({ theme }) => theme.spacing.md}px;
-`;
-
-const inputStyle = {
-  backgroundColor: '#FFFFFF',
-  padding: 16,
-  borderRadius: 8,
-  fontSize: 16,
-  borderWidth: 1,
-  borderColor: '#E2E8F0',
-};
-
-const dropdownStyles = {
-  dropdown: {
-    height: 50,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 8,
-    paddingHorizontal: 16,
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: '#E2E8F0',
-  },
-  placeholderStyle: {
-    fontSize: 16,
-    color: '#7A8C9E',
-  },
-  selectedTextStyle: {
-    fontSize: 16,
-    color: '#2B3A4A',
-  },
-  itemContainerStyle: {
-    backgroundColor: '#FFFFFF',
-    borderBottomWidth: 1,
-    borderBottomColor: '#E2E8F0',
-  },
-  itemTextStyle: {
-    fontSize: 16,
-    color: '#2B3A4A',
-  },
-};
-
-const ActionButton = styled.TouchableOpacity`
-  background-color: ${({ theme }) => theme.colors.primary};
-  padding: ${({ theme }) => theme.spacing.md}px;
-  border-radius: ${({ theme }) => theme.borderRadius.md}px;
-  align-items: center;
-  margin-top: ${({ theme }) => theme.spacing.lg}px;
-`;
-
-const ActionButtonText = styled.Text`
-  color: #FFF;
-  font-size: 16px;
-  font-weight: bold;
-`;
+import { avaliarLeitura } from '../../utils/waterQualityRules';
+import { Container, ContentOffset, Title, Label, SectionTitle, InputGroup, inputStyle, dropdownStyles, ActionButton, ActionButtonText } from './style';
 
 export default function LeituraScreen() {
   const { user } = useAuth();

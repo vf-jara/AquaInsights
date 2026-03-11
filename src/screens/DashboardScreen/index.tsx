@@ -1,77 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components/native';
 import { signOut } from 'firebase/auth';
-import { auth } from '../config/firebase';
-import { useAuth } from '../contexts/AuthContext';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { auth } from '../../config/firebase';
+import { useAuth } from '../../contexts/AuthContext';
 import { useNavigation } from '@react-navigation/native';
-import { userService, UserProfile } from '../services/userService';
-
-const Container = styled(SafeAreaView)`
-  flex: 1;
-  background-color: ${({ theme }) => theme.colors.background};
-  padding: ${({ theme }) => theme.spacing.lg}px;
-`;
-
-const Header = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: ${({ theme }) => theme.spacing.xl}px;
-`;
-
-const Greeting = styled.Text`
-  font-size: 24px;
-  font-weight: bold;
-  color: ${({ theme }) => theme.colors.text};
-`;
-
-const Subtitle = styled.Text`
-  font-size: 14px;
-  color: ${({ theme }) => theme.colors.textLight};
-`;
-
-const MenuGrid = styled.View`
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-`;
-
-const MenuCard = styled.TouchableOpacity`
-  background-color: ${({ theme }) => theme.colors.card};
-  width: 48%;
-  height: 120px;
-  padding: ${({ theme }) => theme.spacing.md}px;
-  border-radius: ${({ theme }) => theme.borderRadius.md}px;
-  margin-bottom: ${({ theme }) => theme.spacing.md}px;
-  justify-content: center;
-  align-items: center;
-  shadow-color: #000;
-  shadow-offset: 0px 4px;
-  shadow-opacity: 0.05;
-  shadow-radius: 8px;
-  elevation: 3;
-`;
-
-const CardText = styled.Text`
-  font-size: 16px;
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.primary};
-  text-align: center;
-  margin-top: ${({ theme }) => theme.spacing.sm}px;
-`;
-
-const LogoutButton = styled.TouchableOpacity`
-  margin-top: auto;
-  align-self: center;
-  padding: ${({ theme }) => theme.spacing.md}px;
-`;
-
-const LogoutText = styled.Text`
-  color: ${({ theme }) => theme.colors.danger};
-  font-size: 16px;
-  font-weight: bold;
-`;
+import { userService, UserProfile } from '../../services/userService';
+import { Container, Header, Greeting, Subtitle, MenuGrid, MenuCard, CardText, LogoutButton, LogoutText } from './style';
 
 export default function DashboardScreen() {
     const { user } = useAuth();
