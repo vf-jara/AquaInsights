@@ -10,20 +10,41 @@ export const Title = styled.Text`
   font-size: 24px;
   font-weight: bold;
   color: ${({ theme }) => theme.colors.primary};
+`;
+
+export const HeaderRow = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: ${({ theme }) => theme.spacing.md}px;
 `;
 
-export const SelectLoteButton = styled.TouchableOpacity<{ isSelected?: boolean }>`
-  background-color: ${({ theme, isSelected }) => isSelected ? theme.colors.secondary : theme.colors.card};
+export const ExportButton = styled.TouchableOpacity`
+  background-color: ${({ theme }) => theme.colors.success};
   padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
-  border-radius: ${({ theme }) => theme.borderRadius.round}px;
-  margin-right: ${({ theme }) => theme.spacing.sm}px;
-  border: 1px solid ${({ theme, isSelected }) => isSelected ? theme.colors.secondary : '#E2E8F0'};
+  border-radius: ${({ theme }) => theme.borderRadius.sm}px;
+  flex-direction: row;
+  align-items: center;
 `;
 
-export const SelectLoteText = styled.Text<{ isSelected?: boolean }>`
-  color: ${({ theme, isSelected }) => isSelected ? '#FFF' : theme.colors.text};
-  font-weight: ${({ isSelected }) => isSelected ? 'bold' : 'normal'};
+export const ExportButtonText = styled.Text`
+  color: #fff;
+  font-weight: bold;
+  margin-left: 4px;
+`;
+
+export const FilterRow = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+`;
+
+export const PickerContainer = styled.View`
+  background-color: ${({ theme }) => theme.colors.card};
+  border-radius: ${({ theme }) => theme.borderRadius.sm}px;
+  border: 1px solid #E2E8F0;
+  overflow: hidden;
+  margin-bottom: ${({ theme }) => theme.spacing.md}px;
 `;
 
 export const LeituraCard = styled.TouchableOpacity`

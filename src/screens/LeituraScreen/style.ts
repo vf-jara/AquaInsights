@@ -45,34 +45,14 @@ export const inputStyle = {
   borderColor: '#E2E8F0',
 };
 
-export const dropdownStyles = {
-  dropdown: {
-    height: 50,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 8,
-    paddingHorizontal: 16,
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: '#E2E8F0',
-  },
-  placeholderStyle: {
-    fontSize: 16,
-    color: '#7A8C9E',
-  },
-  selectedTextStyle: {
-    fontSize: 16,
-    color: '#2B3A4A',
-  },
-  itemContainerStyle: {
-    backgroundColor: '#FFFFFF',
-    borderBottomWidth: 1,
-    borderBottomColor: '#E2E8F0',
-  },
-  itemTextStyle: {
-    fontSize: 16,
-    color: '#2B3A4A',
-  },
-};
+export const PickerContainer = styled.View`
+  background-color: '#FFFFFF';
+  border-radius: 8px;
+  border-width: 1px;
+  border-color: '#E2E8F0';
+  overflow: hidden;
+  margin-bottom: 16px;
+`;
 
 export const ActionButton = styled.TouchableOpacity`
   background-color: ${({ theme }) => theme.colors.primary};

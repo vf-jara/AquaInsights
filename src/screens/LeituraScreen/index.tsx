@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Alert, ActivityIndicator, ScrollView, Platform, KeyboardAvoidingView, Keyboard, TextInput } from 'react-native';
-import { Dropdown } from 'react-native-element-dropdown';
+import { Picker } from '@react-native-picker/picker';
 import { useAuth } from '../../contexts/AuthContext';
 import { lotesService, Lote } from '../../services/lotesService';
 import { leiturasService } from '../../services/leiturasService';
 import { useNavigation } from '@react-navigation/native';
 import { avaliarLeitura } from '../../utils/waterQualityRules';
-import { Container, ContentOffset, Title, Label, SectionTitle, InputGroup, inputStyle, dropdownStyles, ActionButton, ActionButtonText } from './style';
+import { Container, ContentOffset, Title, Label, SectionTitle, InputGroup, inputStyle, PickerContainer, ActionButton, ActionButtonText } from './style';
 
 export default function LeituraScreen() {
   const { user } = useAuth();
@@ -90,30 +90,21 @@ export default function LeituraScreen() {
           ) : lotes.length === 0 ? (
             <Label style={{ color: 'red', marginBottom: 16 }}>Nenhum tanque cadastrado. Crie um tanque primeiro.</Label>
           ) : (
-            <Dropdown
-              search={false}
-              style={dropdownStyles.dropdown}
-              placeholderStyle={dropdownStyles.placeholderStyle}
-              selectedTextStyle={dropdownStyles.selectedTextStyle}
-              itemContainerStyle={dropdownStyles.itemContainerStyle}
-              itemTextStyle={dropdownStyles.itemTextStyle}
-              data={lotes.map(l => ({
-                label: `Lote #${l.numeroLote} (${l.especieId})`,
-                value: l.id!
-              }))}
-              maxHeight={300}
-              labelField="label"
-              valueField="value"
-              placeholder="Selecione um tanque..."
-              value={selectedLote}
-              onFocus={() => Keyboard.dismiss()}
-              onChange={item => {
-                setSelectedLote(item.value);
-                setTimeout(() => phRef.current?.focus(), 100);
-              }}
-              keyboardAvoiding={false}
-              autoScroll={false}
-            />
+            <PickerContainer>
+              <Picker
+                selectedValue={selectedLote}
+                onValueChange={(itemValue) => {
+                  setSelectedLote(itemValue);
+                  setTimeout(() => phRef.current?.focus(), 100);
+                }}
+                style={{ height: 50, width: '100%', color: '#2B3A4A' }}
+              >
+                <Picker.Item label="Selecione um tanque..." value="" />
+                {lotes.map(l => (
+                  <Picker.Item key={l.id} label={`Lote #${l.numeroLote} (${l.especieId})`} value={l.id!} />
+                ))}
+              </Picker>
+            </PickerContainer>
           )}
 
           <SectionTitle style={{ marginTop: 16 }}>Parâmetros da Água:</SectionTitle>
