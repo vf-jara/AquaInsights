@@ -62,6 +62,40 @@ export const CardText = styled.Text`
   margin-left: ${({ theme }) => theme.spacing.md}px;
 `;
 
+export const SyncCard = styled.TouchableOpacity`
+  background-color: #FFF3CD;
+  flex-direction: row;
+  width: 100%;
+  height: 90px;
+  padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.lg}px;
+  border-radius: ${({ theme }) => theme.borderRadius.md}px;
+  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+  align-items: center;
+  border: 1px solid #FFEEBA;
+`;
+
+export const SyncCardText = styled.Text`
+  font-size: 18px;
+  font-weight: 600;
+  color: #856404;
+  margin-left: ${({ theme }) => theme.spacing.md}px;
+  flex: 1;
+`;
+
+export const Badge = styled.View`
+  background-color: #F56565;
+  border-radius: 12px;
+  padding: 4px 8px;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const BadgeText = styled.Text`
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+`;
+
 export const LogoutButton = styled.TouchableOpacity`
   margin-top: auto;
   align-self: center;
