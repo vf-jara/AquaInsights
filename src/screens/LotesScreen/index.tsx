@@ -5,6 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 import { lotesService, Lote } from '../../services/lotesService';
 import { Container, HeaderRow, Title, AddButton, AddButtonText, LoteCard, LoteHeader, LoteTitle, LoteActionRow, LoteActionButton, LoteSubtitle, EmptyText, ModalOverlay, ModalContent, ModalTitle, Input, ModalActionRow, ModalButton, ModalButtonText } from './style';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Picker } from '@react-native-picker/picker';
+import { ESPECIES_SUPORTADAS } from '../../config/especies';
 
 export default function LotesScreen() {
   const { user } = useAuth();
@@ -39,7 +41,7 @@ export default function LotesScreen() {
   const openModalForCreate = () => {
     setEditingLoteId(null);
     setNumeroLote('');
-    setEspecieId('');
+    setEspecieId(ESPECIES_SUPORTADAS[0].id); // Seleciona a primeira por padrão
     setModalVisible(true);
   };
 
@@ -164,13 +166,24 @@ export default function LotesScreen() {
               value={numeroLote}
               onChangeText={setNumeroLote}
             />
-            {/* TODO: Substituir por um Picker de espécies buscando do BD */}
-            <Input
-              placeholder="Nome da Espécie (ex: Tilápia)"
-              placeholderTextColor="#7A8C9E"
-              value={especieId}
-              onChangeText={setEspecieId}
-            />
+            {/* Picker de Espécies carregado da configuração */}
+            <View style={{ 
+              backgroundColor: '#FFFFFF', 
+              borderRadius: 8, 
+              marginBottom: 16, 
+              borderWidth: 1, 
+              borderColor: '#E2E8F0' 
+            }}>
+              <Picker
+                selectedValue={especieId}
+                onValueChange={(itemValue) => setEspecieId(itemValue)}
+                style={{ height: 50, width: '100%', color: '#2B3A4A' }}
+              >
+                {ESPECIES_SUPORTADAS.map(especie => (
+                  <Picker.Item key={especie.id} label={especie.nome} value={especie.id} />
+                ))}
+              </Picker>
+            </View>
 
             <ModalActionRow>
               <ModalButton onPress={() => setModalVisible(false)} disabled={isSubmitting}>

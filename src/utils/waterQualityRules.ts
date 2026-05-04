@@ -36,6 +36,7 @@ export interface DadosLeitura {
   nitrito: number;
   nitrato: number;
   alcalinidade: number;
+  especieId?: string;
 }
 
 // ────────────────────────── Classificadores ──────────────────────────
@@ -200,6 +201,15 @@ function selecionarInstrucoes(avaliacoes: ParametroAvaliacao[]): string[] {
 // ─────────────────────── Avaliação Principal ───────────────────────
 
 export function avaliarLeitura(dados: DadosLeitura): AvaliacaoGeral {
+  // Guarda de segurança: se a espécie for informada e não tiver mapeamento, barramos a avaliação.
+  if (dados.especieId && dados.especieId !== 'tilapia-do-nilo') {
+    return {
+      nivelGeral: 'Crítico',
+      avaliacoes: [],
+      instrucoes: [`ATENÇÃO: As regras de qualidade de água e intervenção ainda não foram implementadas para a espécie selecionada (${dados.especieId}). A avaliação está suspensa para evitar perdas ou manejo incorreto.`]
+    };
+  }
+
   const avaliacoes: ParametroAvaliacao[] = [
     avaliarTemperatura(dados.temperatura),
     avaliarOxigenio(dados.oxigenio),

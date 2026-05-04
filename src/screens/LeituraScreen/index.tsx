@@ -67,9 +67,12 @@ export default function LeituraScreen() {
       alcalinidade: parseFloat(alcalinidade.replace(',', '.')),
     };
 
+    const loteSelecionado = lotes.find(l => l.id === selectedLote);
+    const especieId = loteSelecionado ? loteSelecionado.especieId : undefined;
+
     try {
       setIsSubmitting(true);
-      const { avaliacao } = await leiturasService.registerLeitura(leituraData);
+      const { avaliacao } = await leiturasService.registerLeitura(leituraData, especieId);
       navigation.replace('Orientacao', { avaliacao });
     } catch (error) {
       Alert.alert('Erro', 'Não foi possível salvar a leitura.');

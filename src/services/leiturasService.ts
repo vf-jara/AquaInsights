@@ -22,7 +22,7 @@ export interface Leitura {
 const OFFLINE_LEITURAS_KEY = '@AquaInsights:offline_leituras';
 
 export const leiturasService = {
-    async registerLeitura(leituraData: Omit<Leitura, 'id' | 'data' | 'status' | 'isOffline'>) {
+    async registerLeitura(leituraData: Omit<Leitura, 'id' | 'data' | 'status' | 'isOffline'>, especieId?: string) {
         try {
             const avaliacao = avaliarLeitura({
                 temperatura: leituraData.temperatura,
@@ -32,6 +32,7 @@ export const leiturasService = {
                 nitrito: leituraData.nitrito,
                 nitrato: leituraData.nitrato,
                 alcalinidade: leituraData.alcalinidade,
+                especieId
             });
 
             const status = avaliacao.nivelGeral === 'Ótimo'
