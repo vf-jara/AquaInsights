@@ -6,8 +6,10 @@
 
 ## 🚀 Funcionalidades Principais
 
-- **Autenticação de Usuários:** Cadastro e login utilizando Firebase Authentication.
+- **Autenticação Segura:** Cadastro, login e confirmação de senhas utilizando Firebase Authentication.
 - **Gerenciamento de Tanques/Lotes:** Criação, visualização, edição e exclusão de diferentes lotes de criação.
+- **Catálogo Dinâmico de Espécies:** Suporte arquitetural configurado para adicionar rapidamente regras de qualidade da água para diferentes espécies. A Tilápia-do-nilo (*Oreochromis niloticus*) é a espécie padrão.
+- **Modo Offline com Sincronização Automática:** Permite a realização e o registro de leituras no campo (sem acesso à internet). Os dados ficam salvos de forma segura no aparelho do produtor e são sincronizados silenciosamente quando a conexão é restabelecida.
 - **Registro de Leituras Diárias:** Coleta de dados cruciais para a saúde dos peixes, incluindo:
   - Temperatura
   - pH
@@ -16,8 +18,8 @@
   - Nitrito
   - Nitrato
   - Alcalinidade
-- **Orientações Inteligentes de Manejo:** Ao submeter uma leitura, o aplicativo gera automaticamente orientações emergenciais ou preditivas com base em regras de negócio predefinidas (especialmente calibradas para o cultivo de Tilápia-do-nilo - *Oreochromis niloticus*).
-- **Histórico e Acompanhamento:** Um painel de histórico salva todas as avaliações passadas e os parâmetros para a análise de tendências de um tanque específico ao longo do tempo.
+- **Orientações Inteligentes de Manejo:** Ao submeter uma leitura (mesmo offline), o aplicativo gera automaticamente orientações emergenciais ou preditivas com base em regras de negócio predefinidas.
+- **Histórico e Acompanhamento:** Um painel de histórico salva todas as avaliações passadas e os parâmetros para a análise de tendências de um tanque específico ao longo do tempo (mesclando leituras em nuvem e leituras offline pendentes).
 
 ---
 
@@ -27,9 +29,11 @@ Este projeto foi construído utilizando um conjunto tecnológico moderno para ga
 
 - **Frontend / Mobile Framework:** [React Native](https://reactnative.dev/) com o ecossistema [Expo](https://expo.dev/)
 - **Linguagem:** [TypeScript](https://www.typescriptlang.org/)
-- **Estilização:** [Styled Components](https://styled-components.com/) para componentização de estilos
-- **Banco de Dados & Backend as a Service (BaaS):** [Firebase Firestore](https://firebase.google.com/docs/firestore)
+- **Estilização e UI:** [Styled Components](https://styled-components.com/) e Material Icons
+- **Banco de Dados & BaaS:** [Firebase Firestore](https://firebase.google.com/docs/firestore)
 - **Autenticação:** [Firebase Auth](https://firebase.google.com/docs/auth)
+- **Persistência Offline:** [AsyncStorage](https://react-native-async-storage.github.io/async-storage/)
+- **Monitoramento de Rede:** [NetInfo](https://github.com/react-native-netinfo/react-native-netinfo)
 
 ---
 
