@@ -27,14 +27,24 @@ export const Label = styled.Text`
   margin-left: 2px;
 `;
 
-export const Input = styled.TextInput`
+export const InputContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
   background-color: ${({ theme }) => theme.colors.card};
-  padding: ${({ theme }) => theme.spacing.md}px;
   border-radius: ${({ theme }) => theme.borderRadius.sm}px;
-  font-size: 16px;
-  color: ${({ theme }) => theme.colors.text};
   border-width: 1px;
   border-color: #E2E8F0;
+`;
+
+export const Input = styled.TextInput`
+  flex: 1;
+  padding: ${({ theme }) => theme.spacing.md}px;
+  font-size: 16px;
+  color: ${({ theme }) => theme.colors.text};
+`;
+
+export const PasswordIcon = styled.TouchableOpacity`
+  padding: ${({ theme }) => theme.spacing.md}px;
 `;
 
 export const ButtonContainer = styled.TouchableOpacity<{ variant?: 'primary' | 'secondary' }>`
