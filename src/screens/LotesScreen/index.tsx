@@ -85,8 +85,8 @@ export default function LotesScreen() {
       "Tem certeza de que deseja excluir permanentemente este lote? O histórico será perdido.",
       [
         { text: "Cancelar", style: "cancel" },
-        { 
-          text: "Excluir", 
+        {
+          text: "Excluir",
           style: "destructive",
           onPress: async () => {
             try {
@@ -109,18 +109,18 @@ export default function LotesScreen() {
       <LoteHeader>
         <LoteTitle>Lote #{item.numeroLote}</LoteTitle>
         <LoteActionRow>
-          <LoteActionButton 
-            onPress={(e: any) => { 
-                e.stopPropagation(); 
-                openModalForEdit(item); 
+          <LoteActionButton
+            onPress={(e: any) => {
+              e.stopPropagation();
+              openModalForEdit(item);
             }}
           >
             <MaterialCommunityIcons name="pencil-outline" size={20} color="#0A74DA" />
           </LoteActionButton>
-          <LoteActionButton 
-            onPress={(e: any) => { 
-                e.stopPropagation(); 
-                handleDeleteLote(item.id!); 
+          <LoteActionButton
+            onPress={(e: any) => {
+              e.stopPropagation();
+              handleDeleteLote(item.id!);
             }}
           >
             <MaterialCommunityIcons name="delete-outline" size={20} color="#F56565" />
@@ -159,13 +159,15 @@ export default function LotesScreen() {
             <ModalTitle>{editingLoteId ? 'Editar Lote / Tanque' : 'Novo Lote / Tanque'}</ModalTitle>
 
             <Input
-              placeholder="Identificador do Lote (ex: Tanque 01)"
+              placeholder="Identificador do Lote"
+              placeholderTextColor="#7A8C9E"
               value={numeroLote}
               onChangeText={setNumeroLote}
             />
             {/* TODO: Substituir por um Picker de espécies buscando do BD */}
             <Input
               placeholder="Nome da Espécie (ex: Tilápia)"
+              placeholderTextColor="#7A8C9E"
               value={especieId}
               onChangeText={setEspecieId}
             />

@@ -105,6 +105,7 @@ export const Input = styled.TextInput`
   margin-bottom: ${({ theme }) => theme.spacing.md}px;
   font-size: 16px;
   border: 1px solid #E2E8F0;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const ModalActionRow = styled.View`
